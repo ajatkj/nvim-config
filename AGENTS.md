@@ -7,7 +7,6 @@ This repository is a Neovim configuration rooted at `init.lua`.
 - `lua/plugins/`: plugin specs and plugin-specific config (including `lua/plugins/lsp/`).
 - `lsp/`: per-server LSP settings (for example `lua_ls.lua`, `ruff.lua`, `jsonls.lua`).
 - `ftplugin/`: filetype-specific overrides.
-- `after_1/queries/`: Treesitter query customizations.
 - `lazy-lock.json`: pinned plugin versions.
 
 ## Build, Test, and Development Commands

@@ -21,8 +21,21 @@ jobs:
           find . -type f -name '*.lua' -not -path './.git/*' -print0 \
             | xargs -0 -n1 luac5.4 -p
 
+      - name: Prepare Neovim runtime directory
+        run: |
+          mkdir -p "$RUNNER_TEMP/nvim-runtime"
+          chmod 700 "$RUNNER_TEMP/nvim-runtime"
+
+      - name: Install configured plugins
+        env:
+          XDG_CONFIG_HOME: ${{ github.workspace }}/.ci-xdg
+          XDG_RUNTIME_DIR: ${{ runner.temp }}/nvim-runtime
+          NVIM_APPNAME: nvim
+        run: nvim --headless -u init.lua "+Lazy! sync" +qa
+
       - name: Start Neovim without startup errors
         env:
           XDG_CONFIG_HOME: ${{ github.workspace }}/.ci-xdg
+          XDG_RUNTIME_DIR: ${{ runner.temp }}/nvim-runtime
           NVIM_APPNAME: nvim
         run: nvim --headless -u init.lua "+qa"
