@@ -1,0 +1,28 @@
+name: Neovim configuration checks
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Neovim and Lua tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes neovim lua5.4
+
+      - name: Check Lua syntax
+        run: |
+          find . -type f -name '*.lua' -not -path './.git/*' -print0 \
+            | xargs -0 -n1 luac5.4 -p
+
+      - name: Start Neovim without startup errors
+        env:
+          XDG_CONFIG_HOME: ${{ github.workspace }}/.ci-xdg
+          NVIM_APPNAME: nvim
+        run: nvim --headless -u init.lua "+qa"

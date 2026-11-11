@@ -1,0 +1,21 @@
+# Neovim runtime and generated state
+*.log
+*.swp
+*.swo
+*.swn
+*~
+Session.vim
+shada/
+undo/
+backup/
+swap/
+
+# Local/editor metadata
+.DS_Store
+.luarc.json.local
+.nvim.lua
+.nvimrc
+
+# Plugin and tool state when kept inside the repository
+lazy-lock.local.json
+.cache/
